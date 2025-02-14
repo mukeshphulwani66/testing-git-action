@@ -1,0 +1,48 @@
+name: Deploy Dist v2
+# on: [push,workflow_dispatch]
+on:
+    push:
+        branches:
+            - main
+            - 'feature/**'
+        paths-ignore:
+            - '.github/workflows/*'  
+            - README.md  
+    workflow_dispatch:        
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: setup node
+              uses: ./.github/actions/setupnode
+            - name: Run Tests
+              run: npm run test
+    build:  
+        needs: test
+        runs-on: ubuntu-latest   
+        steps:
+          - name: setup node
+            uses: ./.github/actions/setupnode
+          - name: Build Project
+            run: npm run build  
+          - name: Upload Dist Artifact
+            uses: actions/upload-artifact@v4
+            with:
+                name: dist-files
+                path: dist
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - name: Download Dist Artifact
+              uses: actions/download-artifact@v4
+              with:
+                name: dist-files
+                path: dist   
+            - name: Deploy
+              run: |
+                echo "deploying below files"
+                ls dist
+                echo "Deploy successfull"  
+
+
