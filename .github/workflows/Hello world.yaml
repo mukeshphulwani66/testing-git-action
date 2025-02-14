@@ -1,16 +1,35 @@
+# explain hello world, clone repo , run testcase and setup node
+
 name: Greeting
-# on: push
-on: workflow_dispatch # event on which the workflow will trigger
+on: push
+# on: workflow_dispatch # event on which the workflow will trigger
 jobs:
   greet:
     runs-on: ubuntu-latest
     steps:
-        - name: "greet user"
-          run: echo "Hello world!"
-        - name: Get Code         
-          run: |
-            echo "cloning repo.."
-            echo "${{toJson(github)}}"
-            git clone https://github.com/${{github.repository}}.git myfiles
-            cd myfiles && ls
+        # - name: "greet user"
+        #   run: echo "Hello world!"
+        # - name: Get Code         
+        # #   run: |
+        # #     echo "cloning repo.."
+        # #     echo "${{toJson(github)}}"
+        # #     git clone https://github.com/${{github.repository}}.git myfiles
+        # #     cd myfiles && ls
+      - name: Get Code
+        uses: actions/checkout@v4
+      - name: Install Node 20
+        uses: actions/setup-node@v4
+        with: 
+          node-version: 20
+    #   - name: Cache Dependencies
+    #     uses: actions/cache@v4
+    #     with: 
+    #       path: ~/.npm
+    #       key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: Install Dependencies
+        run: npm install
+      - name: Run Tests
+        run: npm run test
+      - name: deploy
+        run: echo "deploy complete"  
 
