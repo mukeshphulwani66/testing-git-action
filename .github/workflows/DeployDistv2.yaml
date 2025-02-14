@@ -14,7 +14,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: setup node
-              uses: ../.github/actions/setupnode
+              uses: ./.github/actions/setupnode
             - name: Run Tests
               run: npm run test
     build:  
@@ -22,7 +22,7 @@ jobs:
         runs-on: ubuntu-latest   
         steps:
           - name: setup node
-            uses: /.github/actions/setupnode
+            uses: ./.github/actions/setupnode
           - name: Build Project
             run: npm run build  
           - name: Upload Dist Artifact
