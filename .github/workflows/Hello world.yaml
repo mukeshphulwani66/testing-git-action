@@ -1,0 +1,14 @@
+name: Greeting
+# on: push
+on: workflow_dispatch # event on which the workflow will trigger
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+        - name: "greet user"
+          run: echo "Hello world!"
+        - name: Get Code         
+          run: |
+            echo "cloning repo.."
+            echo "${{toJson(github)}}"
+            git clone https://github.com/${{github.repository}}.git     
