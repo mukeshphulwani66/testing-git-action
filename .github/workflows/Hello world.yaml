@@ -1,8 +1,8 @@
 # explain hello world, clone repo , run testcase and setup node, skip CI
 
 name: Greeting
-on: push
-# on: workflow_dispatch # event on which the workflow will trigger
+# on: push
+on: workflow_dispatch # event on which the workflow will trigger
 jobs:
   greet:
     runs-on: ubuntu-latest
