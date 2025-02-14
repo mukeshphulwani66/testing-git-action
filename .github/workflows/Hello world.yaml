@@ -1,4 +1,4 @@
-# explain hello world, clone repo , run testcase and setup node
+# explain hello world, clone repo , run testcase and setup node, skip CI
 
 name: Greeting
 on: push
